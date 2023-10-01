@@ -1,0 +1,508 @@
+<html>
+<head>
+    <title>W3Schools Online Web Tutorials</title>
+    <link rel="icon" href="https://www.w3schools.com/favicon.ico">
+    <link rel="preload" href="/lib/fonts/fontawesome.woff2?14663396" as="font" type="font/woff2" crossorigin> 
+    <link rel="preload" href="/lib/fonts/source-code-pro-v14-latin-regular.woff2" as="font" type="font/woff2" crossorigin> 
+    <link rel="preload" href="/lib/fonts/roboto-mono-v13-latin-500.woff2" as="font" type="font/woff2" crossorigin> 
+    <link rel="preload" href="/lib/fonts/source-sans-pro-v14-latin-700.woff2" as="font" type="font/woff2" crossorigin> 
+    <link rel="preload" href="/lib/fonts/source-sans-pro-v14-latin-600.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/lib/fonts/SourceSansPro-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/lib/fonts/freckle-face-v9-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body style="font-family: 'Source Sans Pro', sans-serif;">
+<script>
+let cart = [];
+let courseFees = {
+    'HTML': 1000,
+    'CSS': 1200,
+    'JavaScript': 1500,
+    'Python': 1500,
+    'SQL':1000,
+    'PHP':1200,
+    'JQuery':500,
+    'Java':2000,
+    'C++':1500,
+    'W3.CSS':500,
+    'Bootstrap':500
+   
+};
+
+function addToCart(course) {
+    if (!cart.some(item => item.course === course)) {
+        cart.push({ course: course, fee: courseFees[course] });
+        updateCart();
+    }
+}
+function removeFromCart(course) {
+    const index = cart.findIndex(item => item.course === course);
+    if (index > -1) {
+        cart.splice(index, 1);
+
+        updateCart();
+        if(cart.length===0){
+            closeCart();
+
+        }
+    }
+}
+function updateCart() {
+    let cartDisplay = document.getElementById("cartDisplay");
+    let totalAmountDisplay = document.getElementById("totalAmount");
+    cartDisplay.innerHTML = '';
+    let totalAmount = 0;
+
+    cart.forEach(item => {
+        totalAmount += item.fee;
+        cartDisplay.innerHTML += `<li>${item.course} - Rs.${item.fee} </li>`;
+    });
+
+    totalAmountDisplay.innerHTML = `Total: Rs.${totalAmount}`;
+}
+function openCart() {
+    document.getElementById("cartSidebar").classList.remove("hidden");
+}
+function closeCart() {
+    document.getElementById("cartSidebar").classList.add("hidden");
+    cart = [];
+}
+function addToCart(course) {
+    if (!cart.some(item => item.course === course)) {
+        cart.push({ course: course, fee: courseFees[course] });
+        updateCart();
+        openCart(); 
+    }
+}
+
+
+</script>
+    <div class="_top">
+    <header>
+        <div class="head"> 
+            <div class="w3school-icon"><a href="#"><img src="download.png" class="_icon"></a>
+            </div>
+            <a href="#_tutorial">Tutorials <i class="fa-solid fa-caret-down _downcaret"></i></a>
+            <a href="#_tutorial">Exercises <i class="fa-solid fa-caret-down _downcaret"></i></a>
+            <a href="#_tutorial">Get Certified <i class="fa-solid fa-caret-down _downcaret"></i></a>
+            <a href="#_tutorial">Services <i class="fa-solid fa-caret-down _downcaret"></i></a>
+        </div>
+        <div class="headright">
+            <div class="_bootcamp"><svg style="position:relative;right:2px;top:2px;margin-right:3px;" width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.65723 6.24707C6.76704 5.91764 7.233 5.91765 7.34281 6.24707L7.98828 8.1835C8.276 9.04666 8.95332 9.72399 9.81648 10.0117L11.7529 10.6572C12.0824 10.767 12.0824 11.233 11.7529 11.3428L9.81649 11.9883C8.95332 12.276 8.27599 12.9533 7.98828 13.8165L7.34281 15.7529C7.233 16.0823 6.76704 16.0823 6.65723 15.7529L6.01173 13.8165C5.72401 12.9533 5.04669 12.276 4.18353 11.9883L2.24707 11.3428C1.91764 11.233 1.91764 10.767 2.24707 10.6572L4.18353 10.0117C5.04669 9.72399 5.72401 9.04667 6.01173 8.18352L6.65723 6.24707Z" fill="#9763f6"></path>
+                <path d="M2.79434 1.14824C2.86023 0.950586 3.1398 0.950587 3.20569 1.14824L3.59297 2.3101C3.7656 2.828 4.172 3.2344 4.6899 3.40703L5.85177 3.79432C6.04942 3.86021 6.04942 4.13978 5.85177 4.20567L4.6899 4.59296C4.172 4.76559 3.7656 5.17199 3.59297 5.68989L3.20569 6.85176C3.13981 7.04941 2.86023 7.04942 2.79434 6.85176L2.40704 5.68988C2.23441 5.17198 1.82801 4.76559 1.31012 4.59296L0.148241 4.20567C-0.0494137 4.13978 -0.0494138 3.86021 0.148241 3.79432L1.31012 3.40703C1.82802 3.2344 2.23441 2.82801 2.40704 2.31011L2.79434 1.14824Z" fill="#9763f6"></path>
+                <path d="M9.8629 0.0988265C9.90682 -0.032943 10.0932 -0.0329419 10.1371 0.098828L10.3953 0.873401C10.5104 1.21867 10.7813 1.4896 11.1266 1.60469L11.9012 1.86288C12.0329 1.9068 12.0329 2.09319 11.9012 2.13711L11.1266 2.39531C10.7813 2.51039 10.5104 2.78133 10.3953 3.12659L10.1371 3.90117C10.0932 4.03294 9.90682 4.03294 9.8629 3.90117L9.6047 3.12659C9.48961 2.78132 9.21868 2.5104 8.87342 2.39531L8.09883 2.13711C7.96706 2.09319 7.96706 1.9068 8.09883 1.86288L8.87342 1.60469C9.21868 1.4896 9.48961 1.21867 9.6047 0.873408L9.8629 0.0988265Z" fill="#9763f6"></path>
+              </svg> Bootcamps</div>
+            <div class="_bootcamp"><svg style="position:relative;right:2px;top:2px;margin-right:3px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#04AA6D" class="bi bi-gift" viewBox="0 0 16 16">
+                <path d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 14.5V7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A2.968 2.968 0 0 1 3 2.506V2.5zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43a.522.522 0 0 0 .023.07zM9 3h2.932a.56.56 0 0 0 .023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0V3zM1 4v2h6V4H1zm8 0v2h6V4H9zm5 3H9v8h4.5a.5.5 0 0 0 .5-.5V7zm-7 8V7H2v7.5a.5.5 0 0 0 .5.5H7z" />
+              </svg> Spaces</div>
+            <div class="_signup">Sign Up</div>
+            <div class="_login">Log in</div>
+        </div> 
+    </header>
+    <div class="_menudiv">
+        <div class="_divbar">HTML</div>
+        <div class="_divbar">CSS</div>
+        <div class="_divbar">JAVASCRIPT</div>
+        <div class="_divbar">SQL</div>
+        <div class="_divbar">PYTHON</div>
+        <div class="_divbar">JAVA</div>
+        <div class="_divbar">PHP</div>
+        <div class="_divbar">BOOTSTRAP</div>
+        <div class="_divbar">HOW TO</div>
+        <div class="_divbar">W3.CSS</div>
+        <div class="_divbar">C</div>
+        <div class="_divbar">C++</div>
+        <div class="_divbar">C#</div>
+        <div class="_divbar">REACT</div>
+        <div class="_divbar">R</div>
+        
+         <div class="_menudivright">
+            <div class="_divbarright _dark"><i class="fa-solid fa-circle-half-stroke"></i></div>
+            <div class="_divbarright _dark"><i class="fa-solid fa-earth-oceania"></i></div>
+            <div class="_divbarright _dark1"><i class="fa-solid fa-magnifying-glass"></i></div>
+        </div>
+    </div>
+</div>
+    <div class="_learn">
+            <h1>Learn to Code</h1>
+            <h2>With the world's largest web developer site.</h2>
+            <form>
+                <input type="text" name="" placeholder="Search For Tutorial">
+                <input type="submit" name="" value="search">
+            </form>
+            <h2 class="h2"><u>Not Sure Where To Begin?</u></h2>
+    </div>
+    <div class="content1 _html">
+        <div class="_common">   
+            <h1 class="h1">HTML</h1>
+            <h2 class="content">The language for building web pages</h2>
+            <button class="_button green"><b>Learn HTML</b></button><br>
+            <button onclick="addToCart('HTML')">Add HTML to Cart</button>
+            <button onclick="removeFromCart('HTML')">Remove HTML to Cart</button>
+            <div id="cartSidebar" class="hidden">
+                <h3>My Cart <span id="closeCart" onclick="closeCart()">X</span></h3>
+                <ul id="cartDisplay"></ul>
+                <div id="totalAmount">Total: Rs.0</div>
+            </div>
+            
+            
+            <button class="_button yellow" id="tutorialButton"><b>Video Tutorial</b></button>
+            <button class="_button black"><b>HTML Reference</b></button><br>
+            <button class="_button pink"><b>Get Certified</b></button><br>
+        </div>
+        <div class="_common">
+            <div class="_try">
+                <div class="_try1">HTML Example:</div>
+                <div class="_try2"></div>
+                <button class="_try3">Try it Yourself</button>
+            </div>
+        </div>
+    </div>
+    <div class="content1 _css">
+        <div class="_common">
+            <h1 class="_color">CSS</h1>
+            <h2 class="content">The language for styling web pages</h2>
+            <button class="_button green"><b>Learn CSS</b></button><br>
+            <button onclick="addToCart('CSS')">Add CSS to Cart</button>
+            <button onclick="removeFromCart('CSS')">Remove CSS to Cart</button>
+            <button class="_button black"><b>CSS Reference</b></button><br>
+            <button class="_button pink"><b>Get Certified</b></button><br>
+        </div>
+        <div class="_common">
+        <div class="_try">
+                <div class="_try1">CSS Example:</div>
+                <div class="_try2"></div>
+                <button class="_try3">Try it Yourself</button>
+        </div>
+        </div>   
+    </div>
+    <div class="content1 _javascript">
+        <div class="_common">
+            <h1 class="java">JavaScript</h1>
+            <h2 class="content">The language for programming web pages</h2>
+            <button class="_button green"><b>Learn JavaScript</b></button><br>
+            <button onclick="addToCart('JavaScript')">Add JS to Cart</button>
+            <button onclick="removeFromCart('JavaScript')">Remove JS to Cart</button>
+            <button class="_button white"><b>JavaScript Reference</b></button><br>
+            <button class="_button pink"><b>Get Certified</b></button><br>
+        </div>
+        <div class="_common">
+            <div class="_try">
+                <div class="_try1">JavaScript Example:</div>
+                <div class="_try2"></div>
+                <button class="_try3">Try it Yourself</button>
+            </div> 
+        </div>
+    </div>
+    <div class="content1 _python">
+        <div class="_common">
+            <h1 class="_color">Python</h1>
+            <h2 class="content">A popular programming language</h2>
+            <button class="_button green"><b>Learn Python</b></button><br>
+            <button onclick="addToCart('Python')">Add Python to Cart</button>
+            <button onclick="removeFromCart('Python')">Remove Python to Cart</button>
+            <button class="_button black"><b>Python Reference</b></button><br>
+            <button class="_button pink"><b>Get Certified</b></button><br>
+        </div>
+        <div class="_common">
+            <div class="_try">
+                <div class="_try1">Python Example:</div>
+                <div class="_try2"></div>
+                <button class="_try3">Try it Yourself</button>
+            </div> 
+        </div>
+    </div>
+    <div class="content1 _sql">
+        <div class="_common">
+            <h1 class="sql">SQL</h1>
+            <h2 class="content">A language for accessing databases</h2>
+            <button class="_button green"><b>Learn SQL</b></button><br>
+            <button onclick="addToCart('SQL')">Add SQL to Cart</button>
+            <button onclick="removeFromCart('SQL')">Remove SQL to Cart</button>
+            <button class="_button black"><b>SQL Reference</b></button><br>
+            <button class="_button pink"><b>Get Certified</b></button><br>
+        </div>
+        <div class="_common">
+            <div class="_try">
+                <div class="_try1">SQL Example:</div>
+                <div class="_try2"></div>
+                <button class="_try3">Try it Yourself</button>
+            </div>
+        </div>
+    </div>
+    <div class="content9">
+        <div class="_1">
+            <div class="_2 _3">
+                <h1 class="content16">PHP</h1>
+                <h4>A web server programming language</h4>
+                <button class="content17">Learn PHP</button>
+                <button onclick="addToCart('PHP')">Add PHP to Cart</button>
+            <button onclick="removeFromCart('PHP')">Remove PHP to Cart</button>
+            </div>
+            <div class="_2 _4">
+                <h1 class="content16">JQuery</h1>
+                <h4>A JS library for developing web pages</h4>
+                <button class="content17">Learn JQuery</button>
+                <button onclick="addToCart('JQuery')">Add JQuery to Cart</button>
+            <button onclick="removeFromCart('JQuery')">Remove JQuery to Cart</button>
+            </div>
+        </div>
+        
+        <div class="_1">
+            <div class="_2 _5">
+                <h1 class="content16">Java</h1>
+                <h4>A programming language</h4>
+                <button class="content17">Learn Java</button>
+                <button onclick="addToCart('Java')">Add Java to Cart</button>
+            <button onclick="removeFromCart('Java')">Remove Java to Cart</button>
+            </div>
+            <div class="_2 _6">
+                <h1 class="content16">C++</h1>
+                <h4>A programming language</h4>
+                <button class="content17">Learn C++</button>
+                <button onclick="addToCart('C++')">Add C++ to Cart</button>
+            <button onclick="removeFromCart('C++')">Remove C++ to Cart</button>
+            </div>
+        </div>
+        
+        <div class="_1">
+            <div class="_2 _7">
+                <h1 class="content16">W3.CSS</h1>
+                <h4>A CSS framework for faster and better responsive web pages</h4>
+                <button class="content17">Learn W3.CSS</button>
+                <button onclick="addToCart('W3.CSS')">Add W3.CSS to Cart</button>
+            <button onclick="removeFromCart('W3.CSS')">Remove W3.CSS to Cart</button>
+            </div>
+            <div class="_2 _8">
+                <h1 class="content16">Bootsrap</h1>
+                <h4>A CSS framework for designing better web pages</h4>
+                <button class="content17">Learn Bootstrap</button>
+                <button onclick="addToCart('Bootstrap')">Add Bootstrap to Cart</button>
+            <button onclick="removeFromCart('Bootstrap')">Remove Bootstrap to Cart</button>
+            </div>
+        </div>
+        
+
+        <div class="content23">
+            <div class="content24 _c">
+                <h2 class="content26">C</h2>
+            </div>
+            <div class="content24 _c1">
+                <h2 class="content27">C#</h2>
+            </div>
+        </div>
+        <div class="content28">
+            <div class="_god">
+                <div class="_bottom content29">
+                    <h1 class="content38">R</h1>
+                </div>
+                <div class="_bottom1 content30">
+                    <h1 class="content38">Koltin</h1>
+                </div>
+            </div>
+            <div class="_god1">
+                <div class="_bottom content31">
+                    <h1 class="content38">Node.Js</h1>
+                </div>
+                <div class="_bottom1 content32">
+                    <h1 class="content38">React</h1>
+                </div>
+            </div>
+        </div>
+        <div class="content28">
+            <div class="_god">
+                <div class="_bottom content34">
+                    <h1 class="content38">Json</h1>
+                </div>
+                <div class="_bottom1 content35">
+                    <h1 class="content38">Vue</h1>
+                </div>
+            </div>
+            <div class="_god">
+                <div class="_bottom content36">
+                    <h1 class="content38">Mysql</h1>
+                </div>
+                 <div class="_bottom1 content37">
+                    <h1 class="content38">XML</h1>
+                </div>
+            </div>
+        </div>
+        <div class="content28">
+            <div class="_god">
+                <div class="_bottom content40">
+                    <h1 class="content38">Sass</h1>
+                </div>
+                <div class="_bottom1 content41">
+                    <h1 class="content38">Icons</h1>
+                </div>
+            </div>
+            <div class="_god1">
+                <div class="_bottom content42">
+                    <h1 class="content38">RWD</h1>
+                </div>
+                <div class="_bottom1 content43">
+                    <h1 class="content38">Graphics</h1>
+                </div>
+            </div>
+        </div>
+        <div class="content28">
+            <div class="_god">
+                <div class="_bottom content45">
+                    <h1 class="content38">SVG</h1>
+                </div>
+                <div class="_bottom1 content46">
+                    <h1 class="content38">Canvas</h1>
+                </div>
+            </div>
+            <div class="_god1">    
+                <div class="_bottom content47">
+                    <h1 class="content38">Raspberry Pi</h1>
+                </div>
+                <div class="_bottom1 content48">
+                    <h1 class="content38">Cyber Security</h1>
+                </div>
+            </div>
+        </div>
+        <div class="content28">
+            <div class="_god">
+                <div class="_bottom content50">
+                    <h1 class="content38">Colors</h1>
+                </div>
+                <div class="_bottom1 content51">
+                    <h1 class="content38">Git</h1>
+                </div>
+            </div>
+            <div class="_god1">    
+                <div class="_bottom content52">
+                    <h1 class="content38">Matplotlib</h1>
+                </div>
+                <div class="_bottom1 content53">
+                    <h1 class="content38">Numpy</h1>
+                </div>
+            </div>    
+        </div>
+        <div class="content28">
+            <div class="_god">
+                <div class="_bottom content55">
+                    <h1 class="content38">Pandas</h1>
+                </div>
+                <div class="_bottom content56">
+                    <h1 class="content38">Scipy</h1>
+                </div>
+            </div>
+            <div class="_god1">
+                <div class="_bottom content57">
+                    <h1 class="content38">ASP</h1>
+                </div>
+                <div class="_bottom content58">
+                    <h1 class="content38">AngularJS</h1>
+                </div>
+            </div>
+        </div>
+        <div class="content28">
+            <div class="_god">
+                <div class="_bottom content60">
+                    <h1 class="content38">AppML</h1>
+                </div>
+                <div class="_bottom1 content61">
+                    <h1 class="content38">Go</h1>
+                </div>
+            </div>
+            <div class="_god1">
+                <div class="_bottom content62">
+                    <h1 class="content38">TypeScript</h1>
+                </div>
+                <div class="_bottom1 content63">
+                    <h1 class="content38">Django</h1>
+                </div>
+            </div>
+        </div>
+        <div class="content28">
+            <div class="_god">
+                <div class="_bottom content65">
+                    <h1 class="content38">MangoDB</h1>
+                </div>
+                <div class="_bottom1 content66">
+                    <h1 class="content38">Statistics</h1>
+                </div>
+            </div>
+            <div class="_god1">
+                <div class="_bottom content67">
+                    <h1 class="content38">Data Science</h1>
+                </div>
+                <div class="_bottom1 content68">
+                    <h1 class="content38">Typing Speed</h1>
+                </div>
+            </div>
+        </div>
+        <div class="content28">
+            <div class="_god">
+                <div class="_bottom content70">
+                    <h1 class="content38">HowTo</h1>
+                </div>
+                <div class="_bottom1 content71">
+                    <h1 class="content38">Code Game</h1>
+                </div>
+            </div>
+            <div class="_god1">
+                <div class="_bottom content72">
+                    <h1 class="content38">Spaces</h1>
+                </div>
+                <div class="_bottom1 content73">
+                    <h1 class="content38">PostgreSQL</h1>
+                </div>
+            </div>
+        </div>
+        <div class="content23">
+            <div class="content24 content75">
+                <h2 class="content77">Excel</h2>
+            </div>
+            <div class="content24 content76">
+                <h2 class="content78">Google Sheets</h2>
+            </div>
+        </div>
+        <div class="content23">
+            <div class="content24 content80">
+                <h2 class="content82">Machine Learning</h2>
+            </div>
+            <div class="content24 content81">
+                <h2 class="content83">Artificial Intelligence</h2>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
